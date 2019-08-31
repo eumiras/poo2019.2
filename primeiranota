@@ -2,13 +2,11 @@ package com.company;
 
 import java.util.Scanner;
 
-public class Unicornio{
+public class Unicornio<carinhos> {
     int nPass = 0;
     int nPassMax;
     int carinhometro = 0;
     int carinhoMax;
-    int kilometragem = 0;
-    int kmMax;
     boolean fome;
     int refeicoes = 0;
     int nrefMax;
@@ -18,33 +16,49 @@ public class Unicornio{
         System.out.println("************************************************" +
                 "\nPassageiros: " + nPass + ", maximo: " + nPassMax +
                 "\nCarinho: " + carinhometro + ", maximo: " + carinhoMax +
-                "\nKilometragem: " + kilometragem + kmMax +
                 "\nRefeições: " + refeicoes + ", maximo" + nrefMax +
                 "\n************************************************");
     }
-    void voar(int qtdpes) {
-        if (fome = true){
+    void voar() {
+        if (fome){
             System.out.println("to co fome, me alimente humano");
             return;
-        }
-        else if ((nPass + qtdpes) > nPassMax ) {
-            System.out.println("pessoas demais aaaaa");
-            return;
-            if (nPass < 1) {
-                System.out.println("não gosto de voar sozinho! >.<");
+            if (refeicoes>nrefMax){
+                System.out.println("tõ cheio, não vou voar");
                 return;
             }
         }
         else if (carinhometro < 1) {
             System.out.println("me dê carinho humano!");
             return;
+            if (carinhometro>carinhoMax){
+                System.out.println("vou voar não");
+                return;
+            }
         }
-        nPass += qtdpes;
-
+        else if (nPass < 1) {
+            System.out.println("não gosto de voar sozinho! >.<");
+            return;
+        }
+        else {
+            System.out.println("lets fly away");
+        }
+    }
+    void subir(int qtdpes){
+        if ((nPass + qtdpes) > nPassMax ) {
+            System.out.println("pessoas demais aaaaa");
+            return;
+        }
+        nPass+=qtdpes;
     }
     void alimentar(int comids){
-        if (fome = true)
+        refeicoes+=comids;
+        fome = false;
     }
+    void darCarinho(int bejin) {
+        carinhometro +=bejin;
+    }
+
 }
 
 
@@ -57,13 +71,35 @@ package sem2au1;
 
 
             Unicornio mimi = new Unicornio();
+            mimi.nrefMax = 5;
+            mimi.carinhoMax = 5;
+            mimi.nPassMax = 3;
+
             String line;
-            while(mimi.estarvivo) {
+            String[] ui;
+
+            while (true){
+                System.out.println("status; subir n; carinho n; alimentar n; voar;");
+
                 line = scanner.nextLine();
-                String
+                ui = line.split(" ");
+
+                if (ui[0].equals("exit"))
+                    break;
+                if (ui[0].equals("voar"))
+                    mimi.voar();
+                if (ui[0].equals("subir"))
+                    mimi.subir(Integer.parseInt(ui[1]));
+                if (ui[0].equals("carinho"))
+                    mimi.darCarinho(Integer.parseInt(ui[1]));
+                if (ui[0].equals("alimentar"))
+                    mimi.alimentar(Integer.parseInt(ui[1]));
+                if (ui[0].equals("startus"))
+                    mimi.showStatus();
+
+
+
+
             }
-
-
-        }
 
     }
